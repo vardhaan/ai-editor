@@ -1,0 +1,1 @@
+Helpful text editor.
