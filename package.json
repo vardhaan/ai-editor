@@ -21,6 +21,8 @@
     "@tiptap/pm": "^2.8.0",
     "@tiptap/react": "^2.8.0",
     "@tiptap/starter-kit": "^2.8.0",
+    "ollama": "^0.5.9",
+    "openai": "^4.67.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

@@ -8,6 +8,9 @@ import TextAlign from '@tiptap/extension-text-align'
 import Placeholder from '@tiptap/extension-placeholder'
 import { FormatMenu } from './editor-components/FormatMenu'
 import { Box } from '@mui/material'
+import { Extension } from '@tiptap/core'; // Ensure you have the correct import
+import ReplaceTextAI from './editor-extensions/replaceTextAI'
+import { useEffect } from 'react'
 
 
 
@@ -31,18 +34,30 @@ const extensions = [
     Placeholder.configure({
         placeholder: "...",
         showOnlyWhenEditable: false
-    })
+    }),
+    ReplaceTextAI
     
   ]
 const content = ""
 
 const TextEditor = () => {
 
+    
 
-    const editor = useEditor({
-        extensions,
-        content
-    })
+    const editor = useEditor(
+        {
+            extensions: extensions as Extension[], // Cast extensions to Extension[]
+            content,
+            autofocus: true,
+            
+        },
+    )
+
+    useEffect(() => {
+        if (editor) {
+          console.log('Available Commands:', Object.keys(editor.commands))
+        }
+    }, [editor])
 
     return (
         <>
