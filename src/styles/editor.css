@@ -48,21 +48,25 @@
 }
 
 .tiptap h1 { 
-    font-size: 1.4rem; 
+    font-size: 3.0rem; 
 }
 
 .tiptap h2 { 
-    font-size: 1.2rem; 
+    font-size: 2.5rem; 
 }
 
 .tiptap h3 { 
-    font-size: 1.1rem; 
+    font-size: 2.0rem; 
 }
 
 .tiptap h4, 
 .tiptap h5, 
 .tiptap h6 { 
-    font-size: 1rem; 
+    font-size: 1.7rem; 
+}
+
+.tiptap p {
+    font-size: 1.2rem;
 }
 
 /* Code and preformatted text styles */

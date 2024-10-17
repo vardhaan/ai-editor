@@ -24,4 +24,6 @@ Embedding/latent space explorer
 
 Will SAEs help? Perhaps if a user struggles with an attribute, we can activate that attribute in the local model more, and it will then give suggestions to bring that attribute into the writing.
 
+Goals for the current writing session.
+
 What is the Cursor of writing?

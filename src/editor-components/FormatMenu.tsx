@@ -1,26 +1,11 @@
 import "../styles/format-menu.css"
 
-import { Box, Grid2 } from "@mui/material";
-import { Editor, isActive } from "@tiptap/react";
-import { Command } from "./Command";
+import { Grid2 } from "@mui/material";
+import { Editor } from "@tiptap/react";
+import { Command, GroupCommandDropDown } from "./Command";
 import { useMemo } from "react";
-import {
-    AddBox,
-    FormatAlignCenter,
-    FormatAlignJustify,
-    FormatAlignLeft,
-    FormatAlignRight,
-    FormatBold,
-    FormatItalic,
-    FormatListBulleted,
-    FormatListNumbered,
-    FormatStrikethrough,
-    HorizontalRule,
-    Link,
-    Redo,
-    Undo
-} from '@mui/icons-material';
-import { getAllCommands, getMenuCommands } from "../lib/commands";
+
+import { CommandType, getFormatMenuCommands, GroupCommandType } from "../lib/commands";
 
 interface FormatMenuProps {
     editor: Editor;
@@ -28,7 +13,40 @@ interface FormatMenuProps {
 
 export const FormatMenu = (props: FormatMenuProps) => {
 
-    const commands = useMemo(() => getAllCommands(props.editor), [props.editor])
+    const commands = useMemo(() => getFormatMenuCommands(props.editor), [props.editor])
+
+    const handleSingleCommand = (command: CommandType) => {
+        return (
+            <Grid2>
+                <Command
+                    name={command.name}
+                    disabled={command.disabled}
+                    isActive={command.isActive}
+                    command={command.command}
+                    icon={command.icon}
+                />
+            </Grid2>
+        )
+    }
+
+    const handleGroupCommand = (groupCommand: GroupCommandType) => {
+        return (
+            <Grid2>
+                <GroupCommandDropDown
+                    commands={groupCommand.commands}
+                    defaultSelected={groupCommand.defaultCommand}
+                />
+            </Grid2>
+        )
+    }
+
+    const handleCommand = (command: CommandType | GroupCommandType) => {
+        if ('commands' in command) {
+            return handleGroupCommand(command);
+        } else {
+            return handleSingleCommand(command);
+        }
+    }
 
     return (
         <Grid2 
@@ -37,17 +55,7 @@ export const FormatMenu = (props: FormatMenuProps) => {
             direction="row"
         >
             {commands.map(command => {
-                return (
-                    <Grid2>
-                        <Command
-                            name={command.name}
-                            disabled={command.disabled}
-                            isActive={command.isActive}
-                            command={command.command}
-                            icon={command.icon}
-                        />
-                    </Grid2>
-                )
+                return handleCommand(command)
             })}
             
         </Grid2>

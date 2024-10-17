@@ -11,6 +11,10 @@ import { Box } from '@mui/material'
 import { Extension } from '@tiptap/core'; // Ensure you have the correct import
 import ReplaceTextAI from './editor-extensions/replaceTextAI'
 import { useEffect } from 'react'
+import Highlight from '@tiptap/extension-highlight'
+import { BubbleMenuContainer } from './editor-components/BubbleMenuContainer'
+import Heading from '@tiptap/extension-heading'
+
 
 
 
@@ -35,9 +39,13 @@ const extensions = [
         placeholder: "...",
         showOnlyWhenEditable: false
     }),
-    ReplaceTextAI
-    
+    ReplaceTextAI,
+    Highlight.configure({ multicolor: true }),
+    Heading.configure({
+        levels: [1, 2, 3],
+    }),
   ]
+
 const content = ""
 
 const TextEditor = () => {
@@ -60,14 +68,14 @@ const TextEditor = () => {
     }, [editor])
 
     return (
-        <>
+        <Box className="editorPageContainer">
             {editor && <FormatMenu editor={editor} />}
             <Box className="tiptapContainer">
                 <EditorContent className="tiptap" editor={editor} />
             </Box>
             
-            {/* <BubbleMenu editor={editor}>Bubble Menu</BubbleMenu> */}
-        </>
+            {editor && <BubbleMenuContainer editor={editor} />}
+        </Box>
     )
 }
 

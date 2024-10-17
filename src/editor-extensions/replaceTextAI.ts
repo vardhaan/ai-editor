@@ -20,8 +20,9 @@ const ReplaceTextAI = Extension.create({
             for await (const text of newTextGenerator) {
                 newText += text || ""
             }
-            console.log("this is NEW TEXT", newText)
             const transaction = state.tr.replaceWith(from, to, state.schema.text(newText));
+            // const highlightMark = state.schema.marks.highlight.create({ color: "#bf92e8" }); // Assuming 'highlight' is defined in your schema
+            // transaction.addMark(from, from + newText.length, highlightMark);
             view.dispatch(transaction)
         }).catch(error => {
             console.error("LLM Chat error", error)
