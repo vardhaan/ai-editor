@@ -1,0 +1,24 @@
+
+
+.textPopper {
+    border: 2px solid rgb(255, 229, 229);
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    background-color: rgb(244, 244, 244);
+}
+
+
+.textPopperTextField {
+    &:focus {
+        outline: none;
+        border: none;
+    }
+    width: 300px;
+}
+
+
+.textPopperContents {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}

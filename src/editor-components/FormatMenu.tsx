@@ -2,7 +2,7 @@ import "../styles/format-menu.css"
 
 import { Grid2 } from "@mui/material";
 import { Editor } from "@tiptap/react";
-import { Command, GroupCommandDropDown } from "./Command";
+import { CommandContainer, GroupCommandDropDown } from "./Command";
 import { useMemo } from "react";
 
 import { CommandType, getFormatMenuCommands, GroupCommandType } from "../lib/commands";
@@ -18,12 +18,8 @@ export const FormatMenu = (props: FormatMenuProps) => {
     const handleSingleCommand = (command: CommandType) => {
         return (
             <Grid2>
-                <Command
-                    name={command.name}
-                    disabled={command.disabled}
-                    isActive={command.isActive}
-                    command={command.command}
-                    icon={command.icon}
+                <CommandContainer
+                    command={command}
                 />
             </Grid2>
         )
@@ -35,6 +31,7 @@ export const FormatMenu = (props: FormatMenuProps) => {
                 <GroupCommandDropDown
                     commands={groupCommand.commands}
                     defaultSelected={groupCommand.defaultCommand}
+                    width="60px"
                 />
             </Grid2>
         )

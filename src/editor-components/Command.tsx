@@ -1,28 +1,63 @@
+import "../styles/command.css"
+
 import { Box, FormControl, IconButton, MenuItem, Select, SelectChangeEvent, Tooltip, Typography } from "@mui/material";
 import { ReactElement, useState } from "react";
 import { CommandType } from "../lib/commands";
+import { useComplexCommand } from "../hooks/useComplexCommand";
 
 
-interface CommandProps {
-    name: string;
-    command: () => void;
-    disabled: () => boolean;
-    isActive: () => boolean;
-    icon?: ReactElement;
+
+interface CommandContainerProps {
+    command: CommandType;
+    Popper?: ReactElement;
+    onCommandClick?: () => void;
 }
 
-export const Command = (props: CommandProps) => {
+export const CommandContainer = (props: CommandContainerProps) => {
 
-    const onClick = () => {
-        props.command()
+    const {name, command, disabled, isActive, icon} = props.command;
+
+    /**We need the commmand container to handle the running of stuff. The og Command component now is just a Button. */
+    const onButtonClick = () => {
+        command();
+        if (props.onCommandClick) {
+            console.log("should be firing!")
+            props.onCommandClick();
+        }
     }
 
     return (
         <Box>
+            <CommandButton 
+                name={name}
+                onClick={onButtonClick}
+                disabled={disabled()}
+                isActive={isActive()}
+                icon={icon}
+            />
+        </Box>
+    )
+}
+
+
+
+interface CommandButtonProps {
+    name: string;
+    onClick: () => void;
+    disabled: boolean;
+    isActive: boolean;
+    icon?: ReactElement;
+}
+
+export const CommandButton = (props: CommandButtonProps) => {
+
+
+    return (
+        <Box>
             <IconButton
-                onClick={() => onClick()}
-                disabled={props.disabled()}
-                color={props.isActive() ? 'primary' : 'default'}
+                onClick={() => props.onClick()}
+                disabled={props.disabled}
+                color={props.isActive ? 'primary' : 'default'}
             >
                 <Tooltip title={props.name}>
                     {props.icon ?? <Typography>{props.name}</Typography>}
@@ -33,46 +68,10 @@ export const Command = (props: CommandProps) => {
 }
 
 
-
-export const useComplexCommand = (commands: CommandType[], defaultSelected?: string) => {
-    console.log("this is default selected", defaultSelected)
-    const [selected, setSelected] = useState<string>(defaultSelected ?? commands[0].name ?? "")
-    const [isOpen, setIsOpen] = useState<boolean>(false)
-    
-    const onClose = (newSelectedValue?: string) => {
-        if (newSelectedValue) {
-            setSelected(newSelectedValue)
-        }
-        setIsOpen(false);
-    }
-
-    const onChange = (newSelectedValue: string) => {
-        setSelected(newSelectedValue)
-        const command = commands.find(command => command.name===newSelectedValue)
-        if (command) {
-            command.command()
-        }
-    }
-
-    const toggleDropdown = () => {
-        setIsOpen(prev => !prev)
-    }
-
-    return {
-        selected,
-        isOpen,
-        onClose,
-        onChange,
-        toggleDropdown
-    }
-}
-
-
-
-
 interface GroupCommandDropDownProps {
     commands: CommandType[];
     defaultSelected: string;
+    width?: string;
 } 
 
 
@@ -90,11 +89,13 @@ export const GroupCommandDropDown = (props: GroupCommandDropDownProps) => {
     }
 
     return (
-        <Box className={`groupCommandDropDown-${selected}`}>
-            <FormControl>
+        <Box className="groupCommandDropDown">
+            <FormControl variant="standard">
                 <Select
                     value={selected}
                     onChange={onSelectChange}
+                    className="groupCommandSelect"
+                    sx={{ width: props.width }}
                     // open={isOpen}
                 >
                     {props.commands.map(command => {

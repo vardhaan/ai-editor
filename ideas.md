@@ -27,3 +27,10 @@ Will SAEs help? Perhaps if a user struggles with an attribute, we can activate t
 Goals for the current writing session.
 
 What is the Cursor of writing?
+
+
+How do we make people feel the life and energy behind writing? Can we make it feel alive?
+    - make it pulse from the center of the writing pad?
+    - vibrations along edge when writing words?
+    - different vibrations/feedback when noodling on a word versus furiously writing
+    - feedback as you write -- if you're using trite words, then bad, otherwise good for example.

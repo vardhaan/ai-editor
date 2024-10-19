@@ -6,6 +6,7 @@ function Post() {
 
   return (
     <Box className="app">
+      {/* <div className="pulse"></div> */}
       <Box className="editor-container">
         <TextEditor />
       </Box>

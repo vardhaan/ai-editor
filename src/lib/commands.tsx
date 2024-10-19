@@ -1,4 +1,4 @@
-import { Undo, Redo, FormatBold, FormatItalic, FormatStrikethrough, AddBox, FormatAlignLeft, FormatAlignCenter, FormatAlignRight, FormatAlignJustify, FormatListBulleted, FormatListNumbered, HorizontalRule, AutoFixNormal } from "@mui/icons-material"
+import { Undo, Redo, FormatBold, FormatItalic, FormatStrikethrough, AddBox, FormatAlignLeft, FormatAlignCenter, FormatAlignRight, FormatAlignJustify, FormatListBulleted, FormatListNumbered, HorizontalRule, AutoFixNormal, AltRoute } from "@mui/icons-material"
 import { Editor }  from "@tiptap/react"
 
 export interface CommandType {
@@ -167,7 +167,14 @@ export const getAllCommands = (editor: Editor): (CommandType|GroupCommandType)[]
                 } as CommandType
             ],
             defaultCommand: "P"
-        } as GroupCommandType
+        } as GroupCommandType,
+        {
+            name: "scratchpad",
+            isActive: () => false,
+            disabled: () => false,
+            command: () => true,
+            icon: <AltRoute />
+        } as CommandType
     ]
 }
 
@@ -327,6 +334,13 @@ export const getBubbleMenuCommands = (editor: Editor) => {
             command: () => editor.chain().focus().replaceText().run(),
             icon: <AutoFixNormal />,
             
+        } as CommandType,
+        {
+            name: "scratchpad",
+            isActive: () => false,
+            disabled: () => false,
+            command: () => true,
+            icon: <AltRoute />
         } as CommandType
     ]
 }
