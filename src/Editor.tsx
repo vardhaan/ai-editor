@@ -58,7 +58,7 @@ const TextEditor = (props: TextEditorProps) => {
     useEffect(() => {
         const newContent = props.file.data ? JSON.parse(props.file.data) : ""
         editor?.commands.setContent(newContent)
-    }, [props.file])
+    }, [props.file.id])
     
     
 
