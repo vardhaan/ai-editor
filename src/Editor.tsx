@@ -1,4 +1,4 @@
-import { BubbleMenu, useEditor, EditorContent } from '@tiptap/react'
+import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import './styles/editor.css'
 import Color from '@tiptap/extension-color'
@@ -6,14 +6,15 @@ import TextStyle from '@tiptap/extension-text-style'
 import ListItem from '@tiptap/extension-list-item'
 import TextAlign from '@tiptap/extension-text-align'
 import Placeholder from '@tiptap/extension-placeholder'
-import { FormatMenu } from './editor-components/FormatMenu'
+import { FormatMenu } from './components/editor/FormatMenu'
 import { Box } from '@mui/material'
 import { Extension } from '@tiptap/core'; // Ensure you have the correct import
 import ReplaceTextAI from './editor-extensions/replaceTextAI'
 import { useEffect } from 'react'
 import Highlight from '@tiptap/extension-highlight'
-import { BubbleMenuContainer } from './editor-components/BubbleMenuContainer'
+import { BubbleMenuContainer } from './components/editor/BubbleMenuContainer'
 import Heading from '@tiptap/extension-heading'
+import { DocumentData } from './types/document'
 
 
 
@@ -46,26 +47,41 @@ const extensions = [
     }),
   ]
 
-const content = ""
+interface TextEditorProps {
+    file: DocumentData;
+    onFileUpdate: (newFile: DocumentData) => void;
+}
 
-const TextEditor = () => {
+const TextEditor = (props: TextEditorProps) => {
 
+
+    useEffect(() => {
+        const newContent = props.file.data ? JSON.parse(props.file.data) : ""
+        editor?.commands.setContent(newContent)
+    }, [props.file])
+    
     
 
     const editor = useEditor(
         {
             extensions: extensions as Extension[], // Cast extensions to Extension[]
-            content,
+            content: props.file.data,
             autofocus: true,
+            onUpdate: ({ editor }) => {
+                const json = editor.getJSON()
+                const jsonString = JSON.stringify(json, null, 2)
+                const docData = {
+                    id: props.file.id,
+                    filename: props.file.filename,
+                    data: jsonString
+                }
+                props.onFileUpdate(docData)
+            }
             
         },
     )
 
-    useEffect(() => {
-        if (editor) {
-          console.log('Available Commands:', Object.keys(editor.commands))
-        }
-    }, [editor])
+
 
     return (
         <Box className="editorPageContainer">

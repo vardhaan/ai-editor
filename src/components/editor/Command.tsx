@@ -1,9 +1,9 @@
-import "../styles/command.css"
+import "../../styles/command.css"
 
 import { Box, FormControl, IconButton, MenuItem, Select, SelectChangeEvent, Tooltip, Typography } from "@mui/material";
 import { ReactElement, useState } from "react";
-import { CommandType } from "../lib/commands";
-import { useComplexCommand } from "../hooks/useComplexCommand";
+import { CommandType } from "../../lib/commands";
+import { useComplexCommand } from "../../hooks/useComplexCommand";
 
 
 

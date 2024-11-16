@@ -1,11 +1,11 @@
-import "../styles/format-menu.css"
+import "../../styles/format-menu.css"
 
 import { Grid2 } from "@mui/material";
 import { Editor } from "@tiptap/react";
 import { CommandContainer, GroupCommandDropDown } from "./Command";
 import { useMemo } from "react";
 
-import { CommandType, getFormatMenuCommands, GroupCommandType } from "../lib/commands";
+import { CommandType, getFormatMenuCommands, GroupCommandType } from "../../lib/commands";
 
 interface FormatMenuProps {
     editor: Editor;

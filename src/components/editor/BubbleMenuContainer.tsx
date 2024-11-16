@@ -1,6 +1,6 @@
 import { Box, ButtonGroup, Card } from "@mui/material";
 import { BubbleMenu, Editor } from "@tiptap/react";
-import { getBubbleMenuCommands } from "../lib/commands";
+import { getBubbleMenuCommands } from "../../lib/commands";
 import { useMemo } from "react";
 import { CommandContainer } from "./Command";
 import { ScratchPad } from "./Scratchpad";

@@ -1,8 +1,8 @@
-import "../styles/scratchpad.css"
+import "../../styles/scratchpad.css"
 
 import { useEffect, useState } from "react";
-import { useDisclose } from "../hooks/useDisclose";
-import { CommandType } from "../lib/commands";
+import { useDisclose } from "../../hooks/useDisclose";
+import { CommandType } from "../../lib/commands";
 import { CommandContainer } from "./Command";
 import { Box, Button, ClickAwayListener, Typography } from "@mui/material";
 import { TextPopper } from "./TextPopper";

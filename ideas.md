@@ -34,3 +34,12 @@ How do we make people feel the life and energy behind writing? Can we make it fe
     - vibrations along edge when writing words?
     - different vibrations/feedback when noodling on a word versus furiously writing
     - feedback as you write -- if you're using trite words, then bad, otherwise good for example.
+
+
+
+Can we make an "editor" in the writing app? Like an omniscient editor that can track errors across all your writing, figure out where you generally can improve as a writer,
+and make suggestions based on that. If you worked at the NYT, your editor would have a relationship with you. They'd know how you write, they'd know how you compare to others.
+They could give you feedback over time to elevate your writing.
+
+
+MATH ACADEMY STYLE PRACTICE?

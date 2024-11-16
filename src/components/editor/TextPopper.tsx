@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import "../styles/textpopper.css"
+import "../../styles/textpopper.css"
 
 import { Box, Popper, TextField } from "@mui/material";
 
