@@ -14,7 +14,7 @@ export const useFiles = () => {
     }
 
     const [file, setFile] = useState<DocumentData>(newDoc)
-    const [allFiles, setAllFiles] = useState<DocumentData[]>([file])
+    const [allFiles, setAllFiles] = useState<DocumentData[]>([])
 
 
 
