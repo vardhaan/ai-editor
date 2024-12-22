@@ -15,6 +15,8 @@ import Highlight from '@tiptap/extension-highlight'
 import { BubbleMenuContainer } from './components/editor/BubbleMenuContainer'
 import Heading from '@tiptap/extension-heading'
 import { DocumentData } from './types/document'
+import { AIEdit } from './editor-extensions/AIEdit'
+import { AIEditTooltip } from './components/editor/AIEditTooltip'
 
 
 
@@ -45,6 +47,7 @@ const extensions = [
     Heading.configure({
         levels: [1, 2, 3],
     }),
+    AIEdit,
   ]
 
 interface TextEditorProps {
@@ -60,7 +63,9 @@ const TextEditor = (props: TextEditorProps) => {
         editor?.commands.setContent(newContent)
     }, [props.file.id])
     
-    
+    useEffect(() => {
+        console.log("editor re-rendered")
+    }, [])
 
     const editor = useEditor(
         {
@@ -91,6 +96,7 @@ const TextEditor = (props: TextEditorProps) => {
             </Box>
             
             {editor && <BubbleMenuContainer editor={editor} />}
+            <AIEditTooltip />
         </Box>
     )
 }

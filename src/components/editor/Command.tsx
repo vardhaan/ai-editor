@@ -1,5 +1,5 @@
 import "../../styles/command.css"
-
+import React from "react";
 import { Box, FormControl, IconButton, MenuItem, Select, SelectChangeEvent, Tooltip, Typography } from "@mui/material";
 import { ReactElement, useState } from "react";
 import { CommandType } from "../../lib/commands";
@@ -13,12 +13,13 @@ interface CommandContainerProps {
     onCommandClick?: () => void;
 }
 
-export const CommandContainer = (props: CommandContainerProps) => {
+export const CommandContainer = React.memo((props: CommandContainerProps) => {
 
     const {name, command, disabled, isActive, icon} = props.command;
 
     /**We need the commmand container to handle the running of stuff. The og Command component now is just a Button. */
     const onButtonClick = () => {
+        console.log("on command button click!")
         command();
         if (props.onCommandClick) {
             console.log("should be firing!")
@@ -37,7 +38,7 @@ export const CommandContainer = (props: CommandContainerProps) => {
             />
         </Box>
     )
-}
+})
 
 
 

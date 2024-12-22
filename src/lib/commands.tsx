@@ -1,12 +1,14 @@
-import { Undo, Redo, FormatBold, FormatItalic, FormatStrikethrough, AddBox, FormatAlignLeft, FormatAlignCenter, FormatAlignRight, FormatAlignJustify, FormatListBulleted, FormatListNumbered, HorizontalRule, AutoFixNormal, AltRoute } from "@mui/icons-material"
+import { Undo, Redo, FormatBold, FormatItalic, FormatStrikethrough, AddBox, FormatAlignLeft, FormatAlignCenter, FormatAlignRight, FormatAlignJustify, FormatListBulleted, FormatListNumbered, HorizontalRule, AutoFixNormal, AltRoute, AutoAwesome } from "@mui/icons-material"
 import { Editor }  from "@tiptap/react"
+
 
 export interface CommandType {
     name: string;
     isActive: () => boolean;
     disabled: () => boolean;
-    command: () => boolean;
+    command: (...args: any[]) => boolean;
     icon?: JSX.Element,
+    manual?: boolean;
 }
 
 export interface GroupCommandType {
@@ -174,7 +176,16 @@ export const getAllCommands = (editor: Editor): (CommandType|GroupCommandType)[]
             disabled: () => false,
             command: () => true,
             icon: <AltRoute />
-        } as CommandType
+        } as CommandType,
+        {
+            name: "AI Edit",
+            isActive: () => editor.isActive('AIEdit'),
+            disabled: () => false,
+            command: (AIEditId: string, color?: string) => editor.chain().focus().setAIEdit(AIEditId, color ?? "#caa5d9").run(),
+            icon: <AutoAwesome/>,
+            manual: true,
+            
+        } as CommandType,
     ]
 }
 
@@ -321,7 +332,16 @@ export const getFormatMenuCommands = (editor: Editor) => {
                 } as CommandType
             ],
             defaultCommand: "P"
-        } as GroupCommandType
+        } as GroupCommandType,
+        {
+            name: "AI Edit",
+            isActive: () => editor.isActive('AIEdit'),
+            disabled: () => false,
+            command: (AIEditId: string, color?: string) => editor.chain().focus().setAIEdit(AIEditId, color ?? "#caa5d9").run(),
+            icon: <AutoAwesome/>,
+            manual: true
+            
+        } as CommandType,
     ]
 }
 

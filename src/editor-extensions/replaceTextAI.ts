@@ -1,5 +1,6 @@
 import { Extension } from '@tiptap/core'
 import { getAITextReplacement } from '../lib/ai'
+import { getSelectedText, getText } from '../lib/text'
 
 const ReplaceTextAI = Extension.create({
   name: 'replaceTextAI',
@@ -12,8 +13,7 @@ const ReplaceTextAI = Extension.create({
        * @param getNewText A function that takes the current text and returns the new text.
        */
       replaceText: () => ({ state, view }) => {
-        const { from, to } = state.selection
-        const selectedText = state.doc.textBetween(from, to, '')
+        const {selectedText, from, to} = getSelectedText(state)
 
         getAITextReplacement(selectedText).then(async (newTextGenerator) => {
             let newText = "";

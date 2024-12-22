@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { initDB } from "../lib/io"
 
 export const DEFAULT_DB_NAME = "te-db"
-export const DEFAULT_DB_VERSION = 1
+export const DEFAULT_DB_VERSION = 2
 
 
 export const useDB = (dbName?: string, version?: number) => {

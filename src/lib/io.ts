@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import { DocumentData } from '../types/document';
+import { AIEditData } from '../types/aiedit';
 
 
 export const saveJsonObject = (filename: string, fileContents: any) => {
@@ -25,6 +26,9 @@ export const initDB = (dbName: string, version: number): Promise<IDBDatabase> =>
             if (!db.objectStoreNames.contains("myObjectStore")) {
                 console.log("mos should be initted here")
                 db.createObjectStore("myObjectStore", {keyPath: "id"})
+            }
+            if (!db.objectStoreNames.contains("aiEditData")) {
+                db.createObjectStore("aiEditData", {keyPath: "id"})
             }
         }
 
@@ -82,5 +86,34 @@ export const getAllFilesFromDb = (db: IDBDatabase) => {
         request.onerror = () => {
             reject(request.error)
         }
+    })
+}
+
+
+export const getAIEditFromDb = (aiEditID: string, db: IDBDatabase) => {
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction("aiEditData", "readonly")
+        const store = transaction.objectStore("aiEditData")
+
+        const request = store.get(aiEditID)
+
+        request.onsuccess = () => {
+            resolve(request.result as AIEditData)
+        }
+        request.onerror = () => {
+            reject(request.error)
+        }
+    })
+}
+
+export const saveAIEditToDb = (editData: AIEditData, db: IDBDatabase) => {
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction("aiEditData", "readwrite")
+        const store = transaction.objectStore("aiEditData")
+
+        const request = store.put(editData)
+
+        request.onsuccess = () => resolve(true)
+        request.onerror = () => reject(request.error)
     })
 }
