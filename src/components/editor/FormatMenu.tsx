@@ -7,9 +7,10 @@ import { useEffect, useMemo, useState } from "react";
 
 import { CommandType, getFormatMenuCommands, GroupCommandType } from "../../lib/commands";
 import { useDB } from "../../hooks/useDB";
-import { createAIEdit } from "../../lib/ai";
+import { createAIEdit, createAIEdits } from "../../lib/ai";
 import { generateFileID, saveAIEditToDb } from "../../lib/io";
 import { AIEditData } from "../../types/aiedit";
+import { splitAllNodeTextsIntoSentences } from "../../lib/text";
 
 interface FormatMenuProps {
     editor: Editor;
@@ -25,18 +26,15 @@ export const FormatMenu = React.memo((props: FormatMenuProps) => {
         const newUpdatedCommands = commands.map((command) => {
             if (command.name === "AI Edit" && db) {
                 const typedCommand = command as CommandType;
+                console.log("modified AI Edit command")
                 return {
                     ...typedCommand,
                     command: () => {
-                        const AIEditID = generateFileID();
-                        createAIEdit(db, props.editor.state).then(edit => {
-                            const data = {
-                                id: AIEditID,
-                                editContent: edit
-                            } as AIEditData
-                            saveAIEditToDb(data, db)
-                        })
-                        return typedCommand.command(AIEditID)
+                        console.log("AI Edit command clicked")
+                        const sentences = splitAllNodeTextsIntoSentences(props.editor.state)
+                        console.log(sentences)
+                        createAIEdits(db, sentences, props.editor)
+                        return true
                     }
                 }
             }
