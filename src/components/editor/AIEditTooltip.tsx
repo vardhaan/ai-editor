@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import { getAIEditFromDb } from '../../lib/io';
 import { useDB } from '../../hooks/useDB';
 import { AIEditData } from '../../types/aiedit';
 
-interface AIEditTooltipProps {
 
-}
-
-export const AIEditTooltip = (props: AIEditTooltipProps) => {
+export const AIEditTooltip = () => {
 
     const {db} = useDB()
     const [anchorEl, setAnchorEl] = useState<HTMLElement|null>(null);

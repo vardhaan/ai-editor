@@ -1,9 +1,7 @@
-import { EditorState } from "@tiptap/pm/state"
 import { AIEditData } from "../types/aiedit"
 import { generateFileID, saveAIEditToDb } from "./io"
 import { LLMChat, ModelTypes } from "./llmChat"
-import { getSelectedText, PositionedSentence } from "./text"
-import { AIEdit } from "../editor-extensions/AIEdit"
+import { PositionedSentence } from "./text"
 import { Editor } from "@tiptap/react"
 
 
@@ -21,37 +19,6 @@ export const getAITextReplacement = async (currText: string) => {
     })
     return newText
 }
-
-
-export const getAIEditLLMCall = async(currText: string) => {
-    // const edit = await getAITextReplacement(currText)
-    // let editContent = ""
-    // for await (const value of edit) {
-    //     if (value !== null) {
-    //         editContent += value
-    //     }
-    // }
-    const data = {
-        id: generateFileID(),
-        editContent: "editContent"
-    } as AIEditData
-    return data
-}
-
-
-export const createAIEdit = async(db: IDBDatabase, state: EditorState) => {
-    const {selectedText, from, to} = getSelectedText(state)
-    const edit = await getAITextReplacement(selectedText)
-    let editContent = ""
-    for await (const value of edit) {
-        if (value !== null) {
-            editContent += value
-        }
-    }
-    return editContent
-
-}
-
 
 
 const getDictionPrompt = (targetSentence: string, precedingSentences: string, succeedingSentences: string) => {
@@ -105,7 +72,7 @@ export const createAIEdits = async(db: IDBDatabase, sentences: PositionedSentenc
         for await (const value of editGen) {
             editContent += value
         }
-        if (editContent.trim() !== "") {
+        if (editContent.trim().length > 0) {
             const AIEditID = generateFileID()
             const AIEditData = {
                 editContent: editContent,

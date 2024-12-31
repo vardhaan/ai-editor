@@ -1,7 +1,7 @@
 import "../../styles/command.css"
 import React from "react";
 import { Box, FormControl, IconButton, MenuItem, Select, SelectChangeEvent, Tooltip, Typography } from "@mui/material";
-import { ReactElement, useState } from "react";
+import { ReactElement } from "react";
 import { CommandType } from "../../lib/commands";
 import { useComplexCommand } from "../../hooks/useComplexCommand";
 
@@ -78,7 +78,7 @@ interface GroupCommandDropDownProps {
 
 export const GroupCommandDropDown = (props: GroupCommandDropDownProps) => {
 
-    const { selected, isOpen, onClose, onChange, toggleDropdown } = useComplexCommand(props.commands, props.defaultSelected)
+    const { selected, onClose, onChange } = useComplexCommand(props.commands, props.defaultSelected)
     /**We want to have a Select dropdown with autowidth and default to props.selected. The children should be Command buttons. Clicking on a button should 
      * run that command, change selected, and close the dropdown.
      */

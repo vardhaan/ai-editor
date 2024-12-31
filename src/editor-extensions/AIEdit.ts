@@ -42,8 +42,7 @@ export const AIEdit = Mark.create({
 
     addCommands() {
         return {
-            setAIEdit: (AIEditId: string, color: string) => ({ commands, state }) => {
-                console.log("AI EDIT MARK SET")
+            setAIEdit: (AIEditId: string, color: string) => ({ commands }) => {
                 return commands.setMark(this.name, { AIEditId, color })
             },
             unsetAIEdit: () => ({ commands }) => {

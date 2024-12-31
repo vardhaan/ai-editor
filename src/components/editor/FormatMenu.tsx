@@ -7,9 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { CommandType, getFormatMenuCommands, GroupCommandType } from "../../lib/commands";
 import { useDB } from "../../hooks/useDB";
-import { createAIEdit, createAIEdits } from "../../lib/ai";
-import { generateFileID, saveAIEditToDb } from "../../lib/io";
-import { AIEditData } from "../../types/aiedit";
+import { createAIEdits } from "../../lib/ai";
 import { splitAllNodeTextsIntoSentences } from "../../lib/text";
 
 interface FormatMenuProps {

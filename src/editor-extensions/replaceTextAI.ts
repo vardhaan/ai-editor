@@ -1,6 +1,6 @@
 import { Extension } from '@tiptap/core'
 import { getAITextReplacement } from '../lib/ai'
-import { getSelectedText, getText } from '../lib/text'
+import { getSelectedText } from '../lib/text'
 
 const ReplaceTextAI = Extension.create({
   name: 'replaceTextAI',
